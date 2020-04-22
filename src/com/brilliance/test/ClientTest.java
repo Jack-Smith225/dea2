@@ -6,6 +6,6 @@ public class ClientTest {
 
 	public static void main(String[] args) {
 
-		Client.main(new String[] {"test", "hello", "MarinZhang"});
+		Client.main(new String[] {"hello", "test1", "MarinZhang"});
 	}
 }

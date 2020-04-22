@@ -175,10 +175,10 @@
     <connection id="jdbcConnection1" class="JdbcConnection" pooled="true"><!-- pooled表示是否使用连接池 -->
       <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/><!--
 				jdbc驱动类路径 -->
-      <property name="url" value="jdbc:oracle:thin:@172.17.2.4:1521:orcl"/><!--
+      <property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:xe"/><!--
 				数据库url -->
-      <property name="username" value="gcy2"/><!-- 用户名 -->
-      <property name="xpassword" value="Z2N5Mg==" encrypt="BASE64"/><!--
+      <property name="username" value="system"/><!-- 用户名 -->
+      <property name="password" value="123123" encrypt="BASE64"/><!--
 				密码，采用密文形式，利用MD5加密 -->
       <property name="use_table_cnt" value="true"/>
       <!-- 连接池属性 -->
