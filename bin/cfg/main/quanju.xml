@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="http://www.brilliance.com.cn/interface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.brilliance.com.cn/interface ../etc/schema/interface.xsd">
+	<interface id="quanju" basePackage="com.brilliance.eibs.core.service.instance.impl" version="2.0">
+		<transaction id="ttt" version="2.0">
+			<step id="1">
+				<filter ref="publicFilter" type="in" encoding="gbk">
+				          <!--  <field tag="a" value="#{RR}"/> -->
+				           <log value="${a}"/>
+				</filter>
+			</step>
+		</transaction>
+	</interface>
+</root>

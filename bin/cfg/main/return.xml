@@ -1,0 +1,50 @@
+<Service>
+  <Service_Header>
+    <msg_interval>30</msg_interval>
+    <msg_expiry>36000</msg_expiry>
+    <msglog>1</msglog>
+    <timeout>3000</timeout>
+    <name></name>
+    <service_sn>1620006000069612095</service_sn>
+    <service_id>xxxxxxxxxxxxx</service_id>
+    <requester_id>xxxxxxxxx</requester_id>
+    <branch_id>803666666</branch_id>
+    <channel_id>02</channel_id>
+    <service_time>20130524142144</service_time>
+    <version_id>01</version_id>
+    <macvalue dataType="0"/>
+    <need_request>true</need_request>
+    <page_control>1</page_control>
+    <service_response>
+      <status dataType="0">xxxxxxx</status>
+      <code>xxxxx</code>
+      <desc>xxxxxxx</desc>
+      <requester_code/>
+      <requester_desc/>
+    </service_response>
+    <start_timestamp>2013-05-24 14:20:52.791</start_timestamp>
+    <trace_msg>SERVICE.SINGLE.ROUTE - Sent single request to provider</trace_msg>
+    <err_reporter>0001,CBOD;</err_reporter>
+    <end_timestamp>2013-05-24 14:20:56.857</end_timestamp>
+  </Service_Header>
+  <Service_Body>
+    <MAC>1620006000069612</MAC>
+    <request>
+      <ACCT-NO>803013901421000648</ACCT-NO>
+      <CURR-COD>01</CURR-COD>
+      <CURR-IDEN>0</CURR-IDEN>
+    </request>
+    <response>
+			<totalCount>业务状态信息集合</totalCount>
+			<list  loop_num="1">
+					<applyBeginDate/>
+					<currencyType/>
+			</list>
+			
+			<filter ref="xmlFilter" type="out"  >
+				<field etag="Service.Service_Body.response.list.applyBeginDate" value="2009-08-04" description="" />
+				<field etag="Service.Service_Body.response.list.currencyType" value="2009-08-04" description="" />
+			</filter>
+    </response>
+  </Service_Body>
+</Service>

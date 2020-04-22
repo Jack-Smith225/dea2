@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns="http://www.brilliance.com.cn/interface"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.brilliance.com.cn/interface
+ ../etc/schema/interface.xsd">
+  <interface id="hello" version="2.0"
+             defaultScope="transaction">
+    <transaction id="test1">
+      <step id="1">
+
+        <filter ref="publicFilter" type="in" encoding="GBK">
+          <field tag="a" value="no" />
+          <if condition="${a=='yes'}">
+            <log value="the value of a is yes" />
+          </if>
+          <elseif condition="${a=='no'}">
+            <log value="the value of a is no" />
+          </elseif>
+          <else>
+            <log value="check out !!!" />
+          </else>
+          <field tag="ip" value="#{ROOTPATH}" />
+          <log value="${ip}" />
+          <field tag="cd" value="0" codetable="way" />
+          <log value="${cd}" />
+          <field value="${mtu:handleValue(cd)}" />
+          <field value="${mtu:handleValue2('12')}" />
+          <field tag="a" value="${1+2}" />
+          <field tag="b" value="${1+2}" />
+          <log value="${a}" />
+          <!-- 给变量重新赋值 -->
+          <field tag="a" value="${a+b}abc" />
+          <log value="${a}" />
+          <field tag="s1" value="${substr(cat('a','bc'),1,3)}" />
+
+          <field tag="s2" value="${formatNow('yyyy-MM-dd:HHmmssSSS')}" />
+          <field value="${accurateDivide(6.2222,2,3)}" />
+          <field tag="len" value="${__this.getLen('测试abc')}" />
+          <foreach tag="i" step="2" end="10">
+            <if condition="${i==4}">
+              <break/>
+            </if>
+            <log value="${i}"/>
+          </foreach>
+
+
+
+          <call tag="result" type="sub" transactionName="test2" interfaceName="hello">
+            <argument value="${s1}"/>
+          </call>
+        </filter>
+      </step>
+
+    </transaction>
+
+    <transaction id="test2">
+      <step id="1">
+        <filter ref="publicFilter" type="in">
+          <field tag="abc" value="${this[0]}" />
+          <field tag="abc2" value="${abc}" />
+        </filter>
+
+        <filter ref="publicFilter" type="in">
+          <field tag="abc1" value="${abc}" />
+        </filter>
+
+      </step>
+
+      <step id="2">
+        <filter ref="publicFilter" type="in">
+          <field tag="abc3" value="${abc}" />
+        </filter>
+      </step>
+    </transaction>
+
+    <transaction id="test3">
+      <step id="1">
+        <filter ref="publicFilter" type="in">
+          <field tag="helloStr" value="Hello,${this[0]}" />
+          <log value="${helloStr}" level="debug" />
+        </filter>
+      </step>
+    </transaction>
+
+
+    <transaction id="test4">
+      <step id="1">
+        <filter ref="publicFilter" type="in">
+          <field tag="helloStr" value="Hello,${this[0]}" />
+          <log value="${helloStr}" level="debug" />
+        </filter>
+      </step>
+    </transaction>
+  </interface>
+  <filters>
+    <filter id="publicFilter" class="PublicFilter" />
+  </filters>
+
+</root>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

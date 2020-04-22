@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns="http://www.brilliance.com.cn/interface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.brilliance.com.cn/interface ../etc/schema/interface.xsd">
+
+    <interface id="file" defaultScope="transaction" basePackage="com.brilliance.eibs.core.service.instance.impl" version="2.0">
+        <transaction id="file">
+            <step id="test">
+                <filter tag="aa" ref="fileFilter" type="out">
+                    <foreach tag="i" end="2">
+                        <field value="1000" type="String" />
+                        <field value="2000" type="String" />
+                    </foreach>
+                </filter>
+                 <!--组装报文-->
+				<filter type="out" ref="fixedFilter">
+                    <convertor tag="dataLen" value="${__this.getLen(aa)}" />
+                    <field etag="0" value="${6+dataLen}" size="6" type="int"/>
+                    <field etag="1" value="${aa}" size="${dataLen}" />
+                </filter>
+				<log value="${aa}" level="info" />
+				
+				<!--建立SOCKET连接 -->
+				<connection ref="socketClientConnection" type="out">
+					<property name="ip" value="127.0.0.1" />
+					<property name="port" value="9999" />
+				</connection>
+				<!--SOEKCT发送 -->
+				<filter ref="socketFilter" type="out">
+					<field value="${this}" />
+				</filter>
+                <!--SOCKET接收-->
+				<filter ref="socketFilter" type="in">
+                    <!-- 报文长度为6个字节 -->
+                    <field tag="len" etag="6" type="int" />
+                    <field tag="len" value="${len-6}" type="int" />
+                    <!-- 根据长度读取报文内容 -->
+                    <field tag="data" etag="${len}" type="String" scope="step" />
+                     <log value="${data}" level="info" />					
+					<field etag="close"/>
+                </filter>
+                
+                  <filter tag="dd" ref="fileFilter" type="in">
+                    <foreach tag="i" end="2" condition="${__this.next()}">
+                        <field tag="clien_no[${i}]" etag="0" type="int" scope="transaction" />
+                        <log value="${clien_no[i]}" level="debug"/>
+                        <field tag="product_code[${i}]" etag="1" type="int" scope="transaction" />
+                        <log value="${product_code[i]}" level="debug"/>
+                    </foreach>
+                </filter>
+                
+            </step>
+        </transaction>
+        
+        <!-- this is server -->
+        <transaction id="test" version="2.0">
+		<step id="1">
+			 <filter ref="socketFilter" type="in" tag="ee">
+                    <!-- 报文长度为6个字节 -->
+                    <field tag="len" etag="6" type="int" />
+                    <field tag="len" value="${len-6}" type="int" />
+                    <!-- 根据长度读取报文内容 -->
+                    <field tag="data" etag="${len}" type="String" scope="step" />
+                      <log value="data=${data}" level="info" />
+                </filter>
+		 	<!-- 组装-->
+                <filter type="out" ref="fixedFilter">
+                    <convertor tag="dataLen" value="${__this.getLen(data)}" />
+                    <field etag="0" value="${6+dataLen}" size="6" type="int"/>
+                    <field etag="1" value="${data}" size="${dataLen}" />
+                </filter>
+				<!--发送-->
+                <filter ref="socketFilter" type="out">
+                    <field value="${this}" />
+                    <field etag="close" />
+                </filter>
+		</step>
+		</transaction>
+    </interface>
+
+    <filters>
+        <filter id="fileFilter" class="FileFilter">
+            <parameter name="record_strategy" value="bysplit" /><!-- 行与行策略 -->
+            <parameter name="record" value="\r\n" /><!--行与行换行符隔开 -->
+            <parameter name="field_strategy" value="bysplit" /><!--列于列策略 -->
+            <parameter name="field" value="|+|" /><!--列之间的分隔符 -->
+        </filter>
+    </filters>
+</root>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

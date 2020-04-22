@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns="http://www.brilliance.com.cn/interface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.brilliance.com.cn/interface ../etc/schema/interface.xsd">
+
+    <interface id="dingchang" type="client" version="2.0">
+        <transaction id="dingchang">
+            <step id="test">
+                <!-- 组装定长报文 -->
+                <filter ref="fixedFilter" type="out">
+                    <convertor tag="dataLen" value="${__this.getLen('abddef')}"/>
+				 <field tag="len" value="${intToBytes(dataLen)}" type="byte[]" 
+                            size="4">
+					</field>
+                    <field tag="data" value="abddef" type="String" size="${dataLen}" />
+                </filter>
+             </step>
+        </transaction>
+    </interface>
+
+    <filters>
+        <filter id="fixedFilter" class="FixedFilter">
+            <parameter name="number_fillchar" value="0" /><!-- 数字类型填充字符。默认为"0" -->
+            <parameter name="string_fillchar" value=" " /><!-- 字符类型填充字符，默认为空格" -->
+        </filter>
+        <filter id="publicFilter" class="PublicFilter" /><!-- 数据处理类 -->
+    </filters>
+
+</root>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

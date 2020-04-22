@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 数据模型定义配置文件 -->
+<imports xmlns="http://www.brilliance.com.cn/import" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.brilliance.com.cn/import schema/import.xsd">
+
+	<!-- 国结请求参数 -->
+	<import id="imp1">
+		<field tag="SRC" value="${formatNow()}" scope="transaction" description="发起节点代码" />
+		<field tag="a" value="${s2}" scope="transaction" description="发起节点代码" />
+	</import>
+
+
+<import id="imp2">
+		<field tag="SRC" value="${formatNow()}" scope="transaction" description="发起节点代码" />
+		
+	</import>
+
+
+
+
+
+</imports>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<codetables xmlns="http://www.brilliance.com.cn/codetable" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.brilliance.com.cn/codetable schema/codetable.xsd">
+	<codetable id="way">
+		<code id="0" value="按分计费" />
+		<code id="1" value="按时计费" />
+		<code id="2" value="按天计费" />
+	</codetable>
+	<codetable id="cycle1">
+		<code id="0" value="10天" />
+		<code id="1" value="20天" />
+		<code id="2" value="30天" />
+	</codetable>
+	<!-- 动态码表 -->
+	<codetable id="cur" sql="SELECT nam1,nam2 FROM tmpkey" />
+</codetables>

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<services id="services" state="on" hotDeploy="off">
+		
+         <service id="test_tf" state="on" type="socket">
+                <property name="port" value="9999" />
+                <property name="trust_ip" value="*" /><!-- 信任IP，主要满足配置的IP才能正常访问服务，多个IP用分号，分隔如：127.0.0.1,192.168.1.219，如果为*表示所有IP -->
+                <property name="thread_pool_size" value="20" /><!-- 连接池的大小 -->
+                <property name="request_queue_len" value="500" /><!-- socket访问的最大队列 -->
+                <property name="receive_timeout" value="10000" />
+                <property name="interfaceName" value="szsbfeedback" />
+                <property name="transactionName" value="szsbfeedback" />
+        </service>
+
+	</services>
+
+	<tasks state="off">
+
+		<task id="min01task" state="on" description="">
+			<property name="expression" value="0 0/1 * * * ? *" />
+			<property name="interfacename" value="historyhq" />
+			<property name="transname" value="historyhq" />
+			<property name="args">
+				<argument name="bCodes"
+					value="AU9999,AGTJD,DINIW,CNH,CNY,EUR,JPY,GBP,CON0,XAU,HKG,XAG,XAP,XPD,TWGD,AU9995,AU100G,AUTD,MAUTD,PT9995,AG9999" />
+				<argument name="dType" value="min01" />
+				<argument name="clientDate" value="" />
+				<argument name="count" value="300" />
+			</property>
+		</task>
+
+		<task id="min02task" state="on" description="">
+			<property name="expression" value="0 0/1 * * * ? *" />
+			<property name="interfacename" value="historyhq" />
+			<property name="transname" value="historyhq" />
+			<property name="args">
+				<argument name="bCodes"
+					value="AU9999,AGTJD,DINIW,CNH,CNY,EUR,JPY,GBP,CON0,XAU,HKG,XAG,XAP,XPD,TWGD,AU9995,AU100G,AUTD,MAUTD,PT9995,AG9999" />
+				<argument name="dType" value="min02" />
+				<argument name="clientDate" value="" />
+				<argument name="count" value="300" />
+			</property>
+		</task>
+
+		<task id="min03task" state="on" description="">
+			<property name="expression" value="0 0/1 * * * ? *" />
+			<property name="interfacename" value="historyhq" />
+			<property name="transname" value="historyhq" />
+			<property name="args">
+				<argument name="bCodes"
+					value="AU9999,AGTJD,DINIW,CNH,CNY,EUR,JPY,GBP,CON0,XAU,HKG,XAG,XAP,XPD,TWGD,AU9995,AU100G,AUTD,MAUTD,PT9995,AG9999" />
+				<argument name="dType" value="min03" />
+				<argument name="clientDate" value="" />
+				<argument name="count" value="300" />
+			</property>
+		</task>
+
+		<task id="min05task" state="on" description="">
+			<property name="expression" value="0 0/1 * * * ? *" />
+			<property name="interfacename" value="historyhq" />
+			<property name="transname" value="historyhq" />
+			<property name="args">
+				<argument name="bCodes"
+					value="AU9999,AGTJD,DINIW,CNH,CNY,EUR,JPY,GBP,CON0,XAU,HKG,XAG,XAP,XPD,TWGD,AU9995,AU100G,AUTD,MAUTD,PT9995,AG9999" />
+				<argument name="dType" value="min05" />
+				<argument name="clientDate" value="" />
+				<argument name="count" value="300" />
+			</property>
+		</task>
+
+		<task id="min30task" state="on" description="">
+			<property name="expression" value="0 0/5 * * * ? *" />
+			<property name="interfacename" value="historyhq" />
+			<property name="transname" value="historyhq" />
+			<property name="args">
+				<argument name="bCodes"
+					value="AU9999,AGTJD,DINIW,CNH,CNY,EUR,JPY,GBP,CON0,XAU,HKG,XAG,XAP,XPD,TWGD,AU9995,AU100G,AUTD,MAUTD,PT9995,AG9999" />
+				<argument name="dType" value="min30" />
+				<argument name="clientDate" value="" />
+				<argument name="count" value="50" />
+			</property>
+		</task>
+
+		<task id="min60task" state="on" description="">
+			<property name="expression" value="0 0/5 * * * ? *" />
+			<property name="interfacename" value="historyhq" />
+			<property name="transname" value="historyhq" />
+			<property name="args">
+				<argument name="bCodes"
+					value="AU9999,AGTJD,DINIW,CNH,CNY,EUR,JPY,GBP,CON0,XAU,HKG,XAG,XAP,XPD,TWGD,AU9995,AU100G,AUTD,MAUTD,PT9995,AG9999" />
+				<argument name="dType" value="min60" />
+				<argument name="clientDate" value="" />
+				<argument name="count" value="50" />
+			</property>
+		</task>
+
+		<task id="min90task" state="on" description="">
+			<property name="expression" value="0 0/5 * * * ? *" />
+			<property name="interfacename" value="historyhq" />
+			<property name="transname" value="historyhq" />
+			<property name="args">
+				<argument name="bCodes"
+					value="AU9999,AGTJD,DINIW,CNH,CNY,EUR,JPY,GBP,CON0,XAU,HKG,XAG,XAP,XPD,TWGD,AU9995,AU100G,AUTD,MAUTD,PT9995,AG9999" />
+				<argument name="dType" value="min90" />
+				<argument name="clientDate" value="" />
+				<argument name="count" value="50" />
+			</property>
+		</task>
+
+		<task id="hour04task" state="on" description="">
+			<property name="expression" value="0 0/5 * * * ? *" />
+			<property name="interfacename" value="historyhq" />
+			<property name="transname" value="historyhq" />
+			<property name="args">
+				<argument name="bCodes"
+					value="AU9999,AGTJD,DINIW,CNH,CNY,EUR,JPY,GBP,CON0,XAU,HKG,XAG,XAP,XPD,TWGD,AU9995,AU100G,AUTD,MAUTD,PT9995,AG9999" />
+				<argument name="dType" value="hour04" />
+				<argument name="clientDate" value="" />
+				<argument name="count" value="2" />
+			</property>
+		</task>
+
+
+		<task id="daytask" state="on" description="">
+			<property name="expression" value="0 0/1 * * * ? *" />
+			<property name="interfacename" value="historyhq" />
+			<property name="transname" value="historyhq" />
+			<property name="args">
+				<argument name="bCodes"
+					value="AU9999,AGTJD,DINIW,CNH,CNY,EUR,JPY,GBP,CON0,XAU,HKG,XAG,XAP,XPD,TWGD,AU9995,AU100G,AUTD,MAUTD,PT9995,AG9999" />
+				<argument name="dType" value="day" />
+				<argument name="clientDate" value="" />
+				<argument name="count" value="2" />
+			</property>
+		</task>
+
+		<task id="weektask" state="on" description="">
+			<property name="expression" value="0 0/5 * * * ? *" />
+			<property name="interfacename" value="historyhq" />
+			<property name="transname" value="historyhq" />
+			<property name="args">
+				<argument name="bCodes"
+					value="AU9999,AGTJD,DINIW,CNH,CNY,EUR,JPY,GBP,CON0,XAU,HKG,XAG,XAP,XPD,TWGD,AU9995,AU100G,AUTD,MAUTD,PT9995,AG9999" />
+				<argument name="dType" value="week" />
+				<argument name="clientDate" value="" />
+				<argument name="count" value="10" />
+			</property>
+		</task>
+
+
+		<task id="monthtask" state="on" description="">
+			<property name="expression" value="0 0/5 * * * ? *" />
+			<property name="interfacename" value="historyhq" />
+			<property name="transname" value="historyhq" />
+			<property name="args">
+				<argument name="bCodes"
+					value="AU9999,AGTJD,DINIW,CNH,CNY,EUR,JPY,GBP,CON0,XAU,HKG,XAG,XAP,XPD,TWGD,AU9995,AU100G,AUTD,MAUTD,PT9995,AG9999" />
+				<argument name="dType" value="month" />
+				<argument name="clientDate" value="" />
+				<argument name="count" value="10" />
+			</property>
+		</task>
+
+		<task id="yeartask" state="on" description="">
+			<property name="expression" value="0 0 8 1 1 ? *" />
+			<property name="interfacename" value="historyhq" />
+			<property name="transname" value="historyhq" />
+			<property name="args">
+				<argument name="bCodes"
+					value="AU9999,AGTJD,DINIW,CNH,CNY,EUR,JPY,GBP,CON0,XAU,HKG,XAG,XAP,XPD,TWGD,AU9995,AU100G,AUTD,MAUTD,PT9995,AG9999" />
+				<argument name="dType" value="year" />
+				<argument name="clientDate" value="" />
+				<argument name="count" value="10" />
+			</property>
+		</task>
+
+		<!-- swift报文接受暂时配置成8点到18点整点轮询接收 -->
+		<task id="swiftrecievetask" state="on" description="">
+			<property name="expression" value="5 0/10 8-20 * * ? *" />
+			<property name="interfacename" value="httptest" />
+			<property name="transname" value="httptest" />
+			<property name="timeout" value="6000" />
+		</task>
+		<task id="ytdsettlementprice" state="on" description="">
+			<property name="expression" value="10 0 17 * * ? *" />
+			<property name="interfacename" value="ytdsettlementprice" />
+			<property name="transname" value="ytdsettlementprice" />
+			<property name="args">
+				<argument name="bCodes"
+					value="AU9999,AGTJD,AU9995,AU100G,AUTD,MAUTD,PT9995,AG9999" />
+			</property>
+			<property name="timeout" value="6000" />
+		</task>
+
+		<task id="ytdsettlementprice" state="on" description="">
+			<property name="expression" value="10 0 17 * * ? *" />
+			<property name="interfacename" value="ytdsettlementprice" />
+			<property name="transname" value="ytdsettlementprice" />
+			<property name="args">
+				<argument name="bCodes"
+					value="AU9999,AGTJD,AU9995,AU100G,AUTD,MAUTD,PT9995,AG9999" />
+			</property>
+			<property name="timeout" value="6000" />
+		</task>
+		
+		<!-- 清理redis任务 -->
+		<task id="clearhq" state="on" description="">
+			<property name="expression" value="0 0 3 * * ? *" />
+			<property name="interfacename" value="clearhq" />
+			<property name="transname" value="clearhq" />
+			<property name="timeout" value="6000" />
+		</task>
+
+	</tasks>
+
+
+</root>

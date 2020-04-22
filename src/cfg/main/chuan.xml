@@ -1,0 +1,178 @@
+<root>
+	<interface id="chuan" version="2.0" defaultScope="transaction">
+	<!-- this is client -->
+		<transaction id="handle" version="2.0">
+			<step id="handle">
+				<filter ref="xmlFilter" type="out">
+					<field etag="Service.Service_Header.service_sn" value="1620006000069612095"
+						description="" />
+					<field etag="Service.Service_Header.service_id" value="xxxxxxxxxxxxxx"
+						description="" />
+					<field etag="Service.Service_Header.requester_id" value="xxxxxxxx"
+						description="" />
+					<field etag="Service.Service_Header.branch_id" value="803666666"
+						description="" />
+					<field etag="Service.Service_Header.channel_id" value="02"
+						description="" />
+					<field etag="Service.Service_Header.service_time" value="20130524142144"
+						description="" />
+					<field etag="Service.Service_Header.version_id" value="01"
+						description="" />
+					<field etag="Service.Service_Header.need_request" value="true"
+						description="" />
+					<field etag="Service.Service_Header.page_control" value="1"
+						description="" />
+					<field etag="Service.Service_Body.MAC" value="1620006000069612"
+						description="" />
+					<field etag="Service.Service_Body.request.orderFlowNo" value="1620006000069612"
+						description="" />
+					<field etag="Service.Service_Body.request.serviceId" value="1620006000069612"
+						description="" />
+				</filter>
+				
+				 <!--组装报文-->
+				<filter type="out" ref="fixedFilter">
+                    <convertor tag="dataLen" value="${__this.getLen(this)}" />
+                    <field etag="0" value="${6+dataLen}" size="6" type="int"/>
+                    <field etag="1" value="${this}" size="${dataLen}" />
+                </filter>
+
+				<!--建立SOCKET连接 -->
+				<connection ref="socketClientConnection" type="out">
+					<property name="ip" value="127.0.0.1" />
+					<property name="port" value="9999" />
+				</connection>
+				<!--SOEKCT发送 -->
+				<filter ref="socketFilter" type="out">
+					<field value="${this}" />
+				</filter>
+				<!--SOCKET接收-->
+				<filter ref="socketFilter" type="in">
+                    <!-- 报文长度为6个字节 -->
+                    <field tag="len" etag="6" type="int" />
+                    <field tag="len" value="${len-6}" type="int" />
+                    <!-- 根据长度读取报文内容 -->
+                    <field tag="data" etag="${len}" type="String" scope="step" />
+                     <log value="${data}" level="info" />					
+					<field etag="close"/>
+                </filter>
+                
+                
+                   <filter ref="xmlFilter" type="in" via="${data}">
+				 <field
+                    tag="count" value="${__this.getChildrenCount('Service.Service_Body.response.list')}"
+				 scope="transaction" />
+					<!-- 定义账号String字符串 -->
+					<foreach tag="i" begin="0" end="${count}" step="1">
+					<field tag="nam[${i}]" etag="Service.Service_Body.response.list(${i}).NAM"
+							scope="transaction"/>
+					<field tag="age[${i}]" etag="Service.Service_Body.response.list(${i}).AGE"
+							scope="transaction"/>
+					</foreach>
+				</filter>
+				
+				 <connection ref="jdbcConnection1" />
+            	<filter ref="sqlFilter" type="in">
+            	<foreach tag="i" begin="0" end="${count}" step="1">
+					<field tag="insert"
+						etag="INSERT INTO TEACHER(INR, AGE, NAM) VALUES(?, ?, ?)">
+						<argument id="1" value="${__this.getCNTinr('TEACHER')}" />
+						<argument id="2" value="${number1(age[i])}" />
+						<argument id="3" value="${nam[i]}" />
+					</field>
+					</foreach>
+					<field etag="commit" />
+				</filter>
+				
+                	
+			</step>
+		</transaction>
+
+
+
+	<!-- this is server -->
+
+		<transaction id="test" version="2.0">
+		<step id="1">
+        	 <!-- 数据库连接 -->
+            <connection ref="jdbcConnection1" />
+            	<filter type="in" ref="sqlFilter">
+            		<field tag="aaa"
+					etag="SELECT NAM,AGE FROM student" type="LST">
+                            <!--SQL参数-->
+					</field>
+            	
+            	</filter>
+        </step>
+		
+			<step id="ddd">
+				<filter ref="xmlFilter" type="out">
+					<field etag="Service.Service_Header.service_sn" value="30"
+						description="" />
+					<field etag="Service.Service_Header.msg_interval" value="36000"
+						description="" />
+					<field etag="Service.Service_Header.msg_expiry" value="xxxxxxxx"
+						description="" />
+					<field etag="Service.Service_Header.msglog" value="1"
+						description="" />
+					<field etag="Service.Service_Header.timeout" value="3000"
+						description="" />
+					<field etag="Service.Service_Header.name" value="20130524142144"
+						description="" />
+					<field etag="Service.Service_Body.response.totalCount" value="总笔数"
+						description="" />
+
+					<foreach tag="i" begin="0" end="2" step="1">
+						<field etag="Service.Service_Body.response.list(${i}).NAM"
+							value="${aaa[i]['NAM']}" description="" />
+						<field etag="Service.Service_Body.response.list(${i}).AGE"
+							value="${aaa[i]['AGE']}" description="" />
+					</foreach>
+				</filter>
+				
+				 <filter ref="socketFilter" type="in">
+                    <!-- 报文长度为6个字节 -->
+                    <field tag="len" etag="6" type="int" />
+                    <field tag="len" value="${len-6}" type="int" />
+                    <!-- 根据长度读取报文内容 -->
+                    <field tag="data" etag="${len}" type="String" scope="step" />
+                      <log value="data=${data}" level="info" />
+                </filter>
+                
+				
+				 <!-- 组装-->
+                <filter type="out" ref="fixedFilter">
+                    <convertor tag="dataLen" value="${__this.getLen(this)}" />
+                    <field etag="0" value="${6+dataLen}" size="6" type="int"/>
+                    <field etag="1" value="${this}" size="${dataLen}" />
+                </filter>
+				<!--发送-->
+                <filter ref="socketFilter" type="out">
+                    <field value="${this}" />
+                    <field etag="close" />
+                </filter>
+			</step>
+
+			<step id="exception">
+
+                <filter type="out" ref="fixedFilter">
+                    <convertor tag="dataLen" value="${__this.getLen('0002')}" />
+                    <field etag="0" value="${6+dataLen}" size="6" />
+                    <field etag="1" value="0002" size="${dataLen}" />
+                </filter>
+                <filter ref="socketFilter" type="out">
+                    <field value="${this}" />
+                    <field etag="close" />
+                </filter>
+            </step>
+            
+           
+           
+		</transaction>
+
+
+	</interface>
+	<filters>
+		<filter id="xmlFilter" class="XmlFilter" />
+	</filters>
+</root>

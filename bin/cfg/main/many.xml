@@ -1,0 +1,124 @@
+<root>
+    <interface id="many" defaultScope="transaction"  basePackage="com.brilliance.eibs.core.service.instance.impl" version="2.0">
+        <import file="#{COMMONPATH}/commons.xml" />
+        <transaction id="many" >
+            <step id="1">
+                <!-- 读取批量文件 -->
+                <connection ref="fileConnection" type="in">
+                    <property name="path" value="D:/tools/new.txt" />
+                    <property name="type" value="list" /><!-- 按行读取为List<String>,如果不配则整个文件读到一个String -->
+                </connection>
+                <!-- 分多线程处理，每个线程产生一个结果,所有结果存放在一个list里面 -->
+                <filter ref="batchFilter" type="in">
+                </filter>
+                <filter ref="publicFilter" type="in">
+                    <!-- 获取所有结果List -->
+                    <field tag="results" value="${this}" scope="step" />
+                    <!-- 获取结果个数 -->
+                    <field tag="len" value="${__this.getArrayLen(results)}" scope="transaction"/>
+                </filter>
+                <foreach tag="i" begin="0" end="${len}" st行完后返ep="1">
+                    <!-- 获取所有结果，这个过程是阻塞的，确保所有线程执回 -->
+                    <filter ref="publicFilter" type="in">
+                        <!-- 获取子线程call返回的ResultMsg对象 -->
+                        <field tag="result[${i}]" value="${__this.getFutureValue(results[i])}" scope="step">
+                        </field>
+                        <if condition="${result[i].success}">
+                            <log value="${result[i].content}" />
+                            <log value="子线程${i}执行成功\r\n" />
+                        </if>
+                        <else>
+                            <log value="${result[i].content}" />
+                            <log value="子线程${i}执行失败\r\n" />
+                        </else>
+                    </filter>
+                </foreach>
+            </step>
+        </transaction>
+        <transaction id="BATCH_CALL" detail="">
+            <process>
+                <step id="ready" />
+                <step id="handle" />
+                <exception id="exception" />
+            </process>
+            <step id="ready">
+                <filter ref="publicFilter" type="in">
+                    <!-- 当前行 -->
+                    <field tag="curLine" value="${this[1]}" scope="transaction" />
+                    <!-- 子线程需要处理的文件内容 -->
+                    <field value="${this[0]}" scope="this" />
+                </filter>
+            </step>
+            <step id="handle">
+                <filter ref="publicFilter" type="in">
+                    <field tag="len" value="${__this.getArrayLen(this)}" scope="step">
+                    </field>
+                </filter>
+                <filter  ref="fileFilter" type="in">
+                    <foreach tag="i" begin="0" end="${len}" step="1" condition="${__this.next()}">
+                    	<log value="正在执行第${i+curLine}行\n" />
+                    	<field tag="t1_no[${i}]" etag="0" type="String" scope="transaction" />
+                    	 <log  value="${t1_no[i]}" level="debug"/>
+                    	<field tag="t2_no[${i}]" etag="1" type="String"  scope="transaction" />
+                    	 <log  value="${t2_no[i]}" level="debug"/>
+                	</foreach>
+                </filter>
+               
+                <filter ref="publicFilter" type="in">
+                    <field value="${super.logbuffer}" scope="this" />
+                </filter>
+            </step>
+            <step id="exception">
+                <!-- 执行失败，返回错误信息 -->
+                <filter ref="publicFilter" type="in">
+                    <field value="第${curLine}行到第${curLine+rows-1}行执行失败\n" scope="this" />
+                </filter>
+            </step>
+        </transaction>
+    </interface>
+
+    <filters>
+        <filter id="publicFilter" class="PublicFilter" />
+        <filter id="batchFilter" class="BatchFilter">
+            <parameter name="lines" value="10" /><!-- 每个线程读取的行数 -->
+            <parameter name="threadnum" value="10" /><!-- 线程池大小 -->
+            <parameter name="call_interface" value="many" /><!-- 处理业务的接口 -->
+            <parameter name="call_transaction" value="BATCH_CALL" /><!-- 处理业务的交易 -->
+        </filter>
+        <filter id="fileFilter" class="FileFilter">
+    		<parameter name="record_strategy" value="bysplit" /><!--行与行策略 -->
+    		<parameter name="record" value="\r\n" /><!--行与行换行符隔开 -->
+    		<parameter name="field_strategy" value="bysplit" /><!--列于列策略 -->
+   			 <parameter name="field" value="|+|" /><!--列之间的分隔符 -->
+			</filter>    
+    </filters>
+    <connections>
+        <connection id="fileConnection" class="FileConnection" />
+    </connections>
+</root>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="http://www.brilliance.com.cn/interface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.brilliance.com.cn/interface ../etc/schema/interface.xsd">
+
+	<interface id="xmltest" version="2.0" defaultScope="transaction">
+	
+		<transaction id="unpack">
+		
+			<step id="1">
+				<connection ref="fileConnection" type="in">
+				
+					<property name="path" value="D:/msg.xml"></property>
+				</connection>
+				<filter type="in" ref="xmlFilter">
+					<field type="in" tag="rtnCod" etag="message.code" scope="step" />
+					<field type="in" tag="rtnDesp" etag="message.desp" scope="step"></field>
+					<log value="rtnCod 1:${rtnCod}" level="debug"/>
+					<log value="trnDesp 1:${rtnDesp}" level="debug"/>
+					
+				</filter>
+				<filter type="in" ref="publicFilter">
+					<log value="rtnCod 2:${rtnCod}" level="debug"/>
+					<log value="rtnDesp 2:${rtnDesp}" level="debug"/>
+					
+				</filter>
+			</step>
+		</transaction>
+	
+	
+	</interface>
+	<connections>
+		<connection class="FileConnection" id="fileConnection"></connection>
+		
+	</connections>
+	<filters>
+		<filter class="PublicFilter" id="publicFilter"></filter>
+		<filter class="XmlFilter" id="xmlFilter"></filter>
+	</filters>
+</root>

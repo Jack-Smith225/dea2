@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns="http://www.brilliance.com.cn/interface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.brilliance.com.cn/interface ../etc/schema/interface.xsd">
+
+  <interface id="test" version="2.0" defaultScope="transaction">
+    <transaction id="hello">
+      <step id="1">
+        <filter ref="publicFilter" type="in">
+          <field tag="helloStr" value="Hello,${this[0]}"/>
+          <log value="${helloStr}" level="debug"/>
+          <!--测试accurateDivide方法-->
+          <field value="${accurateDivide(6.2, 2, 2)}"/>
+          <!--测试bytes2Str方法-->
+          <field value="${bytes2Str('MarinZhang'.getBytes())}"/>
+          <!--测试静态码表的使用-->
+          <field tag="cd" value="0" codetable="cycle1"/>
+          <log value="${cd}" level="debug"/>
+        </filter>
+      </step>
+    </transaction>
+  </interface>
+  <filters>
+    <filter id="publicFilter" class="PublicFilter"/>
+  </filters>
+
+</root>

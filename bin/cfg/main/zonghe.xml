@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="http://www.brilliance.com.cn/interface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.brilliance.com.cn/interface ../etc/schema/interface.xsd">
+	<interface id="zonghe" basePackage="com.brilliance.eibs.core.service.instance.impl" version="2.0">
+		<transaction id="zonghe" version="2.0">
+			<step id="1">
+				<filter ref="publicFilter" type="in" encoding="gbk">
+					<field tag="a" value="${0}" />
+					<foreach tag="i" begin="0" end="5">
+						<if condition="${i%2==0}">
+							<field tag="a" value="${a+i}" />
+						</if>
+						<else>
+							<field tag="a" value="${a+i+1}" />
+						</else>
+					</foreach>
+					<field value="${a}" />
+				</filter>
+			</step>
+		</transaction>
+	</interface>
+</root>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

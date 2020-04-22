@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root 
+xmlns="http://www.brilliance.com.cn/interface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.brilliance.com.cn/interface ../etc/schema/interface.xsd">
+    
+	<interface id="client" type="server" version="2.0">
+		<!--socket客户端  -->
+		<transaction id="sstfservice" >
+		
+		</transaction>
+	</interface>
+	</root>

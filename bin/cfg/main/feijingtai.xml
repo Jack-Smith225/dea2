@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="http://www.brilliance.com.cn/interface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.brilliance.com.cn/interface ../etc/schema/interface.xsd">
+	<interface id="feijingtai" basePackage="com.brilliance.eibs.core.service.instance.impl" version="2.0">
+		<transaction id="www" version="2.0">
+			<step id="1">
+				<filter type="in" ref="publicFilter" encoding="gbk">
+					<field tag="student" type="${new stu()}"/>
+					<field value="${student.setId('abc')}"/>
+					<field value="${student.getId()}"/>
+				</filter>
+			</step>
+		
+		</transaction>
+		</interface>
+		</root>

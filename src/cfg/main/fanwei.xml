@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns="http://www.brilliance.com.cn/interface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.brilliance.com.cn/interface ../etc/schema/interface.xsd">
+  <interface id="fanwei" version="1" defaultScope="transaction">
+    <transaction id="fanwei">
+      <step id="1">
+        <connection ref="fileConnection" type="in">
+           <property name="path" value="C:/Users/wuhan/Desktop/msg.xml" />
+        </connection>
+        <filter ref="xmlFilter" type="in">
+          <field tag="rtnCod" etag="message.code" scope="step"/>
+          <field tag="rtnDesp" etag="message.desp" />
+         <log value="rtnCod 1:${rtnCod}" level="debug" />
+          <log value="rtnDesp 1:${rtnDesp}" level="debug" />
+       </filter>
+        <filter ref="publicFilter" type="in">
+          <log value="rtnCod 2:${rtnCod}" level="debug" />
+          <log value="rtnDesp 2:${rtnDesp}" level="debug" />
+        </filter>
+      </step>
+    </transaction>
+ </interface>
+  <connections>
+    <connection id="fileConnection" class="FileConnection" />
+  </connections>
+  <filters>
+   <filter id="publicFilter" class="PublicFilter" />
+    <filter id="xmlFilter" class="XmlFilter" />
+  </filters>
+
+</root>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

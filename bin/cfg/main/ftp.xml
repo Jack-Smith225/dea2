@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="http://www.brilliance.com.cn/interface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.brilliance.com.cn/interface ../etc/schema/interface.xsd">
+
+	<interface id="ftp" type="server" defaultScope="transaction">
+		<transaction id="ftp" version="2.0">
+			<step id="1">
+				 <connection ref="swtFtpConn" type="out">
+					<property name="remotepath" value="/Upload"/>
+					<property name="localpath" value="C:/Users/dell/Pictures/1.txt"/>
+				</connection> 
+			</step>
+		</transaction>
+
+	</interface>
+
+	<connections>
+
+		<connection class="FtpConnection2" id="swtFtpConn">
+			<property name="username" value="ftptest"/>
+			<property name="xpassword" value="IGIR__Mi5TBnSOOaSIgnbQ"/>
+			<property name="url" value="172.17.2.3"/>
+			<property name="port" value="21"/>
+			<property name="connect_timeout" value="300000"/>
+		</connection>
+	</connections>
+
+	<filters>
+		<filter class="INIFilter" id="iniFilter"/>
+	</filters>
+
+</root>

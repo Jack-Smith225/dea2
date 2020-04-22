@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="http://www.brilliance.com.cn/interface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.brilliance.com.cn/interface ../etc/schema/interface.xsd">
+	<interface id="mabiao" basePackage="com.brilliance.eibs.core.service.instance.impl" version="2.0">
+		<transaction id="bean" version="2.0">
+			<step id="1">
+			 <connection ref="jdbcConnection1"/>
+				<filter ref="publicFilter" type="in" encoding="gbk">
+					<!--静态码表-->
+					<field tag="a" value="0" codetable="way"/>
+					<!--动态码表-->
+					<field tag="a" value="CNY" codetable="cur"/>
+				</filter>
+			</step>
+		</transaction>
+	</interface>
+</root>

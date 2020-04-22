@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<functions xmlns="http://www.brilliance.com.cn/function"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.brilliance.com.cn/function
+   schema/function.xsd">
+
+  <func static="true" namespace="mtu" class="com.brilliance.test.MsgTestUtil"/>
+
+</functions>

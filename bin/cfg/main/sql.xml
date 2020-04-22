@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="http://www.brilliance.com.cn/interface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.brilliance.com.cn/interface ../etc/schema/interface.xsd">
+	<interface id="sql"
+		basePackage="com.brilliance.eibs.core.service.instance.impl" version="2.0">
+		<transaction id="sql" version="2.0">
+			<step id="1">
+				<connection ref="jdbcConnection1" />
+				<filter type="in" ref="sqlFilter">
+            		<field tag="aaa"
+					etag="SELECT NAM FROM student" type="LST">
+                            <!--SQL参数-->
+					</field>
+					<foreach tag="i" begin="0" end="2">
+							<field tag="a" value="${aaa[i]['NAM']}" />
+					</foreach>
+            	
+            	</filter>
+			</step>
+		</transaction>
+	</interface>
+</root>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		

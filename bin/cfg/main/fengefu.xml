@@ -1,0 +1,27 @@
+<root>
+	<interface id="fengefu"
+		basePackage="com.brilliance.eibs.core.service.instance.impl" version="2.0">
+		<transaction id="fengefu">
+			<step id="handle">
+				<filter ref="splitFilter" type="in">
+					<field tag="count" value="${__this.getSplitLen()}" />
+                       <if condition="${size>=2}">
+						<field tag="tranNam" etag="0" />
+						<field tag="intaceNam" etag="0" />
+						<field tag="args" type="string[${size-1}]" />
+						<foreach tag="i" end="${size-1}">
+							<field tag="args[${i}]" etag="${i+1}" />
+						</foreach>
+					</if>
+				</filter>
+			</step>
+		</transaction>
+	</interface>
+	<filters>
+		<filter id="splitFilter" class="SplitFilter">
+			<parameter name="split_strategy" value="|" /><!-- 分隔策略 -->
+			<parameter name="keep_split" value="false" /><!-- 分隔的字段是否保留分隔符 -->
+			<parameter name="split_pos" value="pre" /><!-- 保留的分隔符位置，pre(左)/post(右),配置了keep_split时生效 -->
+		</filter>
+	</filters>
+</root>

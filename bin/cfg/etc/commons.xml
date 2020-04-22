@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<common xmlns="http://www.brilliance.com.cn/common" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.brilliance.com.cn/common schema/common.xsd">
+  <public>
+
+    <!-- 核心相关接口 -->
+    <sys name="ROOTPATH" value="${getRootPath()}" />
+    <sys name="COMMONIMPORT" value="cfg/etc/commonimport.xml"/>
+    <sys name="ENCODING" value="GBK"/>
+    <sys name="FXQ_ENCODING" value="UTF-8"/>
+    <sys name="SC_ENCODING" value="UTF-8"/>
+    <sys name="HX_ENCODING" value="UTF-8"/>
+    <sys name="IP" value="127.0.0.1"/>
+
+    <sys name="BASSTA" value="W"/>
+    <sys name="DCLSTA" value="W"/>
+    <sys name="VRFSTA" value="W"/>
+    <sys name="SNDFLG" value="W"/>
+
+    <sys name="HDATSRC" value="H"/>
+    <sys name="GDATSRC" value="G"/>
+
+
+    <sys name="SC_TF_CODE" value="S07"/>
+    <sys name="SC_TF_CODE_NEW" value="S46"/>
+
+    <sys name="SSTF_REMOTE_PATH" value="/sstf/out/cc"/>
+    <sys name="SSTF_LOCAL_PATH" value="E:/ftp/local/sstf/in"/>
+
+    <sys name="PRICE_LOCAL_PATH" value="../../ftpfile/local/price/in"/>
+    <sys name="PRICE_REMOTE_PATH" value="/app/price/out"/>
+
+
+    <sys name="FXQ_LOCAL_PATH" value="../../ftpfile/local/fxq/out"/>
+    <sys name="FXQ_REMOTE_PATH" value="/app/Accuity/ASM/sftp/1"/>
+
+    <!-- <sys name="FXQ_STOP_PATH" value="E:/sstfjzdev/SSTFJZ/506/data/cc/out"/>
+      <sys name="ZIP_PATH" value="E:/sstfjzdev/SSTFJZ/506/data/FXQStop/In"/> -->
+
+    <sys name="JW_FXCC_LOCAL_PATH" value="../../ftpfile/local/jw/fxcc"/>
+
+    <!-- <sys name="JW_FILE_IN_PATH" value="/app/sstf/data/jw/in"/> -->
+    <sys name="JW_FILE_OUT_PATH" value="E:/sstfjz/data/docs/201710"/>
+    <sys name="JW_FILE_IN_PATH" value="E:/sstfjz/data/fmtin"/>
+
+    <sys name="FXQ_SERVICE_URL" value="http://16.16.17.94:9080/ComplianceLinkWS/services/FilterService"/>
+    <sys name="FXQ_CLIENT_ID" value="cd7f7e63-2ae1-46d1-9aca-c63863379226"/><!--4d2f77b3-c41f-4303-bbb1-155c93cc3a8b -->
+    <sys name="FXQ_PRE_CLIENT_ID" value="4840b103-c16e-49f2-9363-b5e2b80f2887"/><!--07710cfe-5832-4e46-8b2f-6ad862e70944 -->
+
+
+    <sys name="SC_NEW_LOCAL_OUT_PATH" value="/app/ftpfile/local/sc/new"/>
+    <sys name="SC_LOCAL_OUT_PATH" value="../../ftpfile/local/sc/out"/>
+    <sys name="SC_LOCAL_IN_PATH" value="../../ftpfile/local/sc/in"/>
+    <sys name="SC_REMOTE_IN_PATH" value="/DW_Interface/DW_IN"/>
+    <sys name="SC_REMOTE_OUT_PATH" value="/DW_Interface/DW_OUT/M65"/>
+    <sys name="SC_COMPERMES_PATH" value="../../ftpfile/local/sc/mes"/>
+
+
+    <sys name="SC_UNINSTALL_RELOAD_INTERVAL" value="300000"/><!--ms -->
+    <sys name="SC_UNINSTALL_RELOAD_DURATION" value="3600000"/><!--ms -->
+
+    <sys name="TF_SWIFT_OUT_PATH" value="../../doka506/data/swtout/nofxq/JZBANK"/>
+    <sys name="TF_SWIFT_OUT_FXQ_PATH" value="../../doka506/data/swtout/fxq/JZBANK"/>
+    <sys name="TF_SWIFT_IN_FIN_PATH" value="E:/ftp/local/swift/in/fin"/>
+    <sys name="TF_SWIFT_IN_PATH" value="../../doka506/data/pmdin"/>
+    <sys name="TF_SWIFT_OUT_REJECTED_PATH" value="/app/doka506/data/swtfxq/feedback"/>
+    <sys name="FXQ_SWIFT_OUT_PATH" value="/Accuity/FP1_OUT/data/inbox"/>
+    <sys name="FXQ_SWIFT_OUT_NOHITS_PATH" value="/Accuity/FP1_OUT/data/outbox/noHits"/>
+    <sys name="FXQ_SWIFT_OUT_REJECTED_PATH" value="/Accuity/FP1_OUT/data/outbox/Rejected"/>
+    <sys name="FXQ_SWIFT_IN_NOHIT_PATH" value="/Accuity/FP1_IN/data/outbox/noHits"/>
+    <sys name="FXQ_SWIFT_IN_REJECTED_PATH" value="/Accuity/FP1_IN/data/outbox/Rejected"/>
+
+
+    <!-- 个人结售汇xml报文 -->
+    <sys name="FMMSGHEAD" value="transaction.header"/>
+    <sys name="FMMSGBODY" value="transaction.body.request"/>
+    <sys name="FMMSGRESP" value="transaction.response"/>
+    <!-- 以下为56号文相关内容 -->
+    <sys name="MSGHEAD" value="MSG.HEAD"/>
+    <sys name="MSG56_RESP_PATH" value="/sstf/interface/resp56/"/>
+
+
+    <sys name="MQ_56_ip" value="16.16.18.35"/>
+    <sys name="MQ_56_port" value="1414"/>
+    <sys name="MQ_56_mgr" value="QM_CODE0092"/><!-- MQ队列管理器 -->
+    <sys name="MQ_56_chn" value="CHL.SC.BANK0092"/><!-- MQ服务器连接通道 -->
+    <sys name="MQ_56_ccsid" value="1381"/><!-- MQCCSID编码 -->
+    <sys name="MQ_56_sendQueue" value="SNDTEST"/><!-- MQ56 发送队列 -->
+    <sys name="MQ_56_recvQueue" value="QL.CODE.TO.BANK0092"/><!-- MQ56
+			接收队列 -->
+    <!-- 以上为56号文相关内容 -->
+
+    <sys name="SMS_TEMPLATE_DIR" value="E:/sstfjz-be-dea/cfg/sms"/>
+  </public>
+
+  <functions ref="cfg/etc/functions.xml"/>
+  <codetables ref="cfg/etc/codetables.xml"/>
+
+  <!-- 连接 -->
+  <!-- 声明会使用到的connection -->
+  <connections>
+
+    <connection id="smsshortscc" class="ShortSocketClientConnection">
+      <property name="ip" value="16.16.17.151"/> <!-- 192.168.250.126 -->
+      <property name="port" value="8888"/> <!-- 9999 -->
+      <property name="connect_timeout" value="60000"/>
+      <property name="so_timeout" value="60000"/>
+      <property name="receive_timeout" value="60000"/>
+      <property name="has_head" value="true"/>
+      <property name="head_len_type" value="10"/>
+      <property name="head_len" value="5"/>
+      <property name="is_contain_head_len" value="false"/>
+      <property name="fill_len" value="0"/>
+      <property name="is_contain_fill_len" value="false"/>
+    </connection>
+
+    <connection id="shortscc" class="ShortSocketClientConnection">
+      <property name="ip" value="192.168.250.18"/>
+      <property name="port" value="6464"/>
+      <property name="connect_timeout" value="60000"/>
+      <property name="so_timeout" value="60000"/>
+      <property name="receive_timeout" value="60000"/>
+      <property name="has_head" value="true"/>
+      <property name="head_len_type" value="10"/>
+      <property name="head_len" value="8"/>
+      <property name="is_contain_head_len" value="false"/>
+      <property name="fill_len" value="0"/>
+      <property name="is_contain_fill_len" value="false"/>
+    </connection>
+
+    <connection id="jwshortscc" class="ShortSocketClientConnection">
+      <property name="ip" value="16.16.18.37"/>
+      <property name="port" value="12345"/>
+      <property name="connect_timeout" value="60000"/>
+      <property name="so_timeout" value="60000"/>
+      <property name="receive_timeout" value="60000"/>
+      <property name="has_head" value="true"/>
+      <property name="head_len_type" value="10"/>
+      <property name="head_len" value="8"/>
+      <property name="is_contain_head_len" value="false"/>
+      <property name="fill_len" value="0"/>
+      <property name="is_contain_fill_len" value="false"/>
+    </connection>
+
+    <connection id="xdshortscc" class="ShortSocketClientConnection">
+      <property name="ip" value="16.16.16.99"/> <!-- 0026测试ip 182.168.171.38 0027、0028测试ip 182.168.171.34 -->
+      <property name="port" value="20000"/>
+      <property name="connect_timeout" value="60000"/>
+      <property name="so_timeout" value="60000"/>
+      <property name="receive_timeout" value="60000"/>
+      <property name="has_head" value="true"/>
+      <property name="head_len_type" value="10"/>
+      <property name="head_len" value="8"/>
+      <property name="is_contain_head_len" value="false"/>
+      <property name="fill_len" value="0"/>
+      <property name="is_contain_fill_len" value="false"/>
+    </connection>
+
+    <connection id="61shortscc" class="ShortSocketClientConnection">
+      <property name="ip" value="192.168.250.18"/>
+      <property name="port" value="9772"/>
+      <property name="connect_timeout" value="60000"/>
+      <property name="so_timeout" value="60000"/>
+      <property name="receive_timeout" value="60000"/>
+      <property name="has_head" value="true"/>
+      <property name="head_len_type" value="10"/>
+      <property name="head_len" value="8"/>
+      <property name="is_contain_head_len" value="false"/>
+      <property name="fill_len" value="0"/>
+      <property name="is_contain_fill_len" value="false"/>
+    </connection>
+
+    <connection id="socketClientConnection" class="SocketClientConnection"/>
+    <!-- jdbcConnection数据库连接 -->
+
+    <connection id="jdbcConnection1" class="JdbcConnection" pooled="true"><!-- pooled表示是否使用连接池 -->
+      <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/><!--
+				jdbc驱动类路径 -->
+      <property name="url" value="jdbc:oracle:thin:@172.17.2.4:1521:orcl"/><!--
+				数据库url -->
+      <property name="username" value="gcy2"/><!-- 用户名 -->
+      <property name="xpassword" value="Z2N5Mg==" encrypt="BASE64"/><!--
+				密码，采用密文形式，利用MD5加密 -->
+      <property name="use_table_cnt" value="true"/>
+      <!-- 连接池属性 -->
+      <poolSetting>
+        <property name="initialSize" value="5"/><!-- 初始化连接 -->
+        <property name="maxIdle" value="10"/><!-- 最大空闲连接 -->
+        <property name="minIdle" value="5"/><!-- 最小空闲连接 -->
+        <property name="maxActive" value="15"/><!-- 最大连接数量 -->
+        <property name="logAbandoned" value="false"/><!-- 标记当Statement或连接被泄露时是否打印程序的stack
+					traces日志 -->
+        <property name="removeAbandoned" value="true"/><!--removeAbandoned:
+					是否自动回收超时连接 -->
+        <property name="removeAbandonedTimeout" value="180"/><!--removeAbandonedTimeout:
+					超时时间(以秒数为单位) -->
+        <property name="maxWait" value="3000"/><!--maxWait: 超时等待时间以毫秒为单位
+					6000毫秒/1000等于60秒 -->
+        <property name="validationQueryTimeout" value="3"/>
+      </poolSetting>
+    </connection>
+
+    <connection id="szsbJdbcConn" class="JdbcConnection" pooled="true"><!-- pooled表示是否使用连接池 -->
+      <property name="driverClassName" value="com.ibm.db2.jcc.DB2Driver"/><!--
+				jdbc驱动类路径 -->
+      <property name="url" value="jdbc:db2://16.16.18.60:50000/szsb"/><!--
+				jdbc:db2://16.16.17.153:50000/JZBSPT2:currentSchema=JZBSPT; 数据库url -->
+      <property name="username" value="szsbusr"/><!-- 用户名 sstf -->
+      <property name="xpassword" value="anpiYW5rNzg5" encrypt="BASE64"/><!--
+				JZBstf123 密码，采用密文形式，利用MD5加密 -->
+      <property name="use_table_cnt" value="true"/>
+      <!-- 连接池属性 -->
+      <poolSetting>
+        <property name="initialSize" value="5"/><!-- 初始化连接 -->
+        <property name="maxIdle" value="10"/><!-- 最大空闲连接 -->
+        <property name="minIdle" value="5"/><!-- 最小空闲连接 -->
+        <property name="maxActive" value="15"/><!-- 最大连接数量 -->
+        <property name="logAbandoned" value="false"/><!-- 标记当Statement或连接被泄露时是否打印程序的stack
+					traces日志 -->
+        <property name="removeAbandoned" value="true"/><!--removeAbandoned:
+					是否自动回收超时连接 -->
+        <property name="removeAbandonedTimeout" value="180"/><!--removeAbandonedTimeout:
+					超时时间(以秒数为单位) -->
+        <property name="maxWait" value="3000"/><!--maxWait: 超时等待时间以毫秒为单位
+					6000毫秒/1000等于60秒 -->
+        <property name="validationQueryTimeout" value="3"/>
+      </poolSetting>
+    </connection>
+
+    <connection id="fileConnection" class="FileConnection"/>
+    <connection id="commandConnection" class="CommandConnection"/>
+
+    <connection class="FtpConnection2" id="fxqFtpConn">
+      <property name="username" value="ebills"/>
+      <property name="xpassword" value="p-YMMn8AJeA"/>
+      <property name="url" value="16.16.17.117"/>
+      <property name="port" value="21"/>
+      <property name="connect_timeout" value="300000"/>
+    </connection>
+
+    <connection class="SftpConnection2" id="fxqSFTPConn">
+      <property name="username" value="wasadmin"/>
+      <property name="xpassword" value="z96eU01CJMo"/>
+      <property name="url" value="16.16.17.94"/>
+      <property name="port" value="22"/>
+      <property name="connect_timeout" value="300000"/>
+    </connection>
+
+    <connection class="FtpConnection2" id="jwFtpConn">
+      <property name="username" value="test"/>
+      <property name="xpassword" value="62-EUF4_XGg"/>
+      <property name="url" value="127.0.0.1"/>
+      <property name="port" value="21"/>
+      <property name="connect_timeout" value="300000"/>
+    </connection>
+
+    <connection class="FtpConnection2" id="scFtpConn">
+      <property name="username" value="dwuserin"/>
+      <property name="xpassword" value="p6NArfyUdz5nSOOaSIgnbQ"/>
+      <property name="url" value="201.168.1.107"/>
+      <property name="port" value="21"/>
+      <property name="connect_timeout" value="300000"/>
+    </connection>
+
+    <connection class="FtpConnection2" id="scOutFtpConn">
+      <property name="username" value="dwuserout"/>
+      <property name="xpassword" value="p6NArfyUdz5nSOOaSIgnbQ"/>
+      <property name="url" value="201.168.1.107"/>
+      <property name="port" value="21"/>
+      <property name="connect_timeout" value="300000"/>
+    </connection>
+
+    <connection class="FtpConnection2" id="priceFtpConn">
+      <property name="username" value="lk"/>
+      <property name="xpassword" value="SvptR0Eoqyg"/>
+      <property name="url" value="182.168.171.146"/>
+      <property name="port" value="21"/>
+      <property name="connect_timeout" value="300000"/>
+    </connection>
+
+
+    <connection class="FtpConnection2" id="ftpConn">
+      <property name="username" value="test"/>
+      <property name="xpassword" value="62-EUF4_XGg"/>
+      <property name="url" value="127.0.0.1"/>
+      <property name="port" value="21"/>
+      <property name="connect_timeout" value="300000"/>
+    </connection>
+
+    <connection class="FtpConnection2" id="testFtpConn">
+      <property name="username" value="opxswift"/>
+      <property name="xpassword" value="b3B4c3dpZnQ=" encrypt="BASE64"/>
+      <property name="url" value="16.16.18.57"/>
+      <property name="port" value="21"/>
+      <property name="connect_timeout" value="300000"/>
+    </connection>
+
+
+    <!--56号文 连接MQ的配置 -->
+    <connection class="MQConnection" id="mqConnection56">
+      <property name="ip" value="#{MQ_56_ip}"/>
+      <property name="port" value="#{MQ_56_port}"/>
+      <property name="channel" value="#{MQ_56_chn}"/>
+      <property name="queueManager" value="#{MQ_56_mgr}"/>
+      <property name="queue" value=""/>
+      <property name="CCSID" value="#{MQ_56_ccsid}"/>
+      <property name="userID" value="jzbkwh"/>
+      <property name="xpassword" value="OTY5ODk5YjlmYTJiZjIxNjZlODUzOTZiZGQyMTg4NjA=" encrypt="BASE64"/>
+    </connection>
+
+
+
+  </connections>
+
+  <!-- 处理类 -->
+  <!-- 声明会使用到的filter -->
+  <filters>
+
+
+    <filter id="publicFilter" class="PublicFilter"/><!-- 数据处理类 -->
+    <filter id="chartFilter" class="ChartFilter"/>
+    <filter id="resultSetFilter" class="ResultSetFilter"/><!-- 数据库ResultSet处理类 -->
+
+    <filter id="fixedFilter" class="FixedFilter"/><!-- d定长 -->
+    <filter id="xmlFilter" class="XmlFilter"/><!-- XML报文处理类 -->
+    <filter id="socketFilter" class="SocketFilter"/><!-- socket服务端处理类 -->
+    <filter id="fixFilter" class="FixFilter"/><!-- fix -->
+    <filter id="sqlFilter" class="SqlFilter"/><!-- SQL执行类 -->
+    <filter id="swiftFilter" class="SwiftFilter"/><!-- swift报文 -->
+    <filter id="beanFilter" class="BeanFilter"/><!-- bean -->
+    <filter id="gsonFilter" class="GsonFilter"/><!-- json -->
+    <filter id="excelFilter" class="ExcelFilter"/>
+    <filter id="mqFilter" class="MQFilter"/>
+    <filter id="splitFilter" class="SplitFilter">
+      <parameter name="split_strategy" value="|"/>
+    </filter>
+
+    <filter id="mesSplitFilter" class="SplitFilter">
+      <parameter name="split_strategy" value="\r\n"/>
+    </filter>
+
+
+    <filter id="splitFilter_pound" class="SplitFilter">
+      <parameter name="split_strategy" value="&lt;br /&gt;"/>
+    </filter>
+
+
+    <filter id="coreSplitFilter" class="SplitFilter">
+      <parameter name="split_strategy" value="0x02"/> <!-- 0x02 -->
+    </filter>
+
+    <filter id="ctlSplitFilter" class="SplitFilter">
+      <parameter name="split_strategy" value="0x1b"/>
+    </filter>
+
+    <filter id="priceFileFilter" class="FileFilter">
+      <parameter name="record_strategy" value="bysplit"/><!-- 行与行策略 -->
+      <parameter name="record" value="\r\n"/><!--行与行换行符隔开 -->
+      <parameter name="field_strategy" value="bysplit"/><!--列于列策略 -->
+      <parameter name="field" value=","/><!--列之间的分隔符 -->
+    </filter>
+
+    <filter id="fileFilter" class="FileFilter">
+      <parameter name="record_strategy" value="bysplit"/><!-- 行与行策略 -->
+      <parameter name="record" value="\r\n"/><!--行与行换行符隔开 -->
+      <parameter name="field_strategy" value="bysplit"/><!--列于列策略 -->
+      <parameter name="field" value="|"/><!--列之间的分隔符 0x1b -->
+    </filter>
+
+    <filter id="pipeFileFilter" class="FileFilter">
+      <parameter name="record_strategy" value="bysplit"/><!-- 行与行策略 -->
+      <parameter name="record" value="\r\n"/><!--行与行换行符隔开 -->
+      <parameter name="field_strategy" value="bysplit"/><!--列于列策略 -->
+      <parameter name="field" value="|"/><!--列之间的分隔符 -->
+    </filter>
+
+    <filter id="scFileFilter" class="FileFilter">
+      <parameter name="record_strategy" value="bysplit"/><!-- 行与行策略 -->
+      <parameter name="record" value="\r\n"/><!--行与行换行符隔开 -->
+      <parameter name="field_strategy" value="bysplit"/><!--列于列策略 -->
+      <parameter name="field" value="0x1b"/><!--列之间的分隔符 -->
+      <parameter name="trimField" value="true"/>
+    </filter>
+
+    <filter id="gjFileFilter" class="FileFilter">
+      <parameter name="record_strategy" value="bysplit"/><!-- 行与行策略 -->
+      <parameter name="record" value="\r\n"/><!--行与行换行符隔开 -->
+      <parameter name="field_strategy" value="bysplit"/><!--列于列策略 -->
+      <parameter name="field" value=":"/><!--列之间的分隔符 -->
+    </filter>
+
+
+
+    <!--<filter id="xdFileFilter" class="FileFilter"> <parameter name="record_strategy"
+      value="bysplit"/>&lt;!&ndash; 行与行策略 &ndash;&gt; <parameter name="record"
+      value="\r\n"/>&lt;!&ndash;行与行换行符隔开 &ndash;&gt; <parameter name="field_strategy"
+      value="bysplit"/>&lt;!&ndash;列于列策略 &ndash;&gt; <parameter name="field" value="$"/>&lt;!&ndash;列之间的分隔符
+      &ndash;&gt; </filter> -->
+
+
+  </filters>
+</common>

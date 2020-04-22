@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="http://www.brilliance.com.cn/interface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.brilliance.com.cn/interface ../etc/schema/interface.xsd">
+  <public>
+  </public>
+  <interface id="STLtoMTS" type="server" version="2.0">
+    <transaction id="STLtoMTS">
+      <step id="1">
+        <filter type="in" ref="publicFilter">
+          <!-- STL待发送的报文文件夹路径 -->
+           <field tag="sendPath" value="${this[0]}"/>
+           <!-- MTS接收STL报文路径 -->
+           <field tag="recvPath" value="${this[1]}"/>
+           <!-- 压缩文件的文件路径 -->
+           <field tag="tempPath" value="D:/${formatNow('yyyyMMddHHmmss')}.tar"/>
+           
+           
+           <!-- 压缩文件 -->
+           <field value="${tarFile(sendPath,tempPath,false)}"/>
+           <field tag="f" value="${file(tempPath)}"/>
+           <field tag="content" value="${fu:readFileToString(f,'GBK')}"/>
+           <field tag="writeContent" value="send|${recvPath}|${content}"/>
+        </filter>
+        <!-- 连接MQ -->
+        <connection ref="mqsndConnection" type="out" />
+        <filter ref="mqFilter" type="out" encoding="GBK">
+           <field value="${__this.send(writeContent)}"/>
+        </filter>
+      </step>
+    </transaction>
+  </interface>
+
+  <functions>
+   <func static="true" namespace="fu" class="org.apache.commons.io.FileUtils"/>
+  </functions>
+  
+  
+  <!-- 各类连接配置 -->
+  <connections>
+    <!-- MTS的MQ发送队列连接,发送到报送平台的接收队列 -->
+    <connection class="MQConnection" id="mqsndConnection">
+      <property name="ip" value="172.16.253.42" /><!-- mq服务端IP -->
+      <property name="port" value="1414" /><!-- 端口 -->
+      <property name="channel" value="serverChannel" /><!-- 服务器连接通道 -->
+      <property name="queueManager" value="MQ_B003801" /><!-- 队列管理器名称 -->
+      <property name="queue" value="REC_MQ" /><!-- MTS到报送平台 队列名称 -->
+      <property name="CCSID" value="1381" />
+    </connection>
+  </connections>
+</root>
