@@ -8,8 +8,8 @@
       <property name="thread_pool_size" value="20" /><!-- 连接池的大小 -->
       <property name="request_queue_len" value="500" /><!-- socket访问的最大队列 -->
       <property name="receive_timeout" value="10000" />
-      <property name="interfaceName" value="szsbfeedback" />
-      <property name="transactionName" value="szsbfeedback" />
+      <property name="interfaceName" value="sstfservice" />
+      <property name="transactionName" value="receive" />
     </service>
 
 
@@ -25,7 +25,7 @@
 
   </services>
 
-  <tasks state="on">
+	<tasks state="off">
 
     <task id="tsk01" state="on" description="">
       <!-- 时间表达式 quartz表达式 -->

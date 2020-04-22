@@ -66,7 +66,7 @@
 
           <field etag="insert into teacher(id,nam,age) values(?,?,?)">
             <argument value="${formatNow('HHmmss')}"/>
-            <argument value="wangwu11111111111111111111111111111111111111111111"/>
+            <argument value="wangwu111111"/>
             <argument value="${20}"/>
           </field>
 
@@ -74,21 +74,66 @@
           <field tag="resultList" etag="select * from teacher"
                  type="LST"/>
 
-          <field value="${resultList}"/>
-          <foreach tag="i" end="${resultList.size()}">
-            <log value="${resultList[i].id}"/>
-            <log value="${resultList[i].nam}"/>
-          </foreach>
-        </filter>
+					<field value="${resultList}" />
+					<foreach tag="i" end="${resultList.size()}">
+						<log value="${resultList[i].id}" />
+						<log value="${resultList[i].nam}" />
+					</foreach>
 
-      </step>
 
-      <!--捕获sql语句的异常-->
-      <step id="exception">
-        <filter type="in" ref="publicFilter">
-          <log value="${super.errorcode}"/>
-          <log value="${super.description}"/>
-        </filter>
+					<field tag="map" type="map" />
+					<field value="${map.put('id','ID0001')}" />
+					<field value="${map.put('name','lisi')}" />
+					<field value="${map.put('age',12)}" />
+					<field tag="jsonStr" value="${toJson(map)}" />
+
+					<field tag="map1" value="${fromJson(jsonStr,'map')}" />
+
+				</filter>
+
+
+				<filter ref="fileFilter" type="out">
+					<foreach tag="i" end="${resultList.size()}">
+						<field value="${resultList[i].id}" type="String" />
+						<field value="${resultList[i].nam}" type="String" />
+						<field value="${resultList[i].age}" type="String" />
+					</foreach>
+				</filter>
+
+				<connection ref="fileConnection" type="out">
+					<property name="path" value="d:/test.txt" />
+				</connection>
+
+
+
+
+			</step>
+
+
+			<step id="2">
+
+				<connection ref="fileConnection" type="in">
+					<property name="path" value="d:/test.txt" />
+				</connection>
+
+				<filter ref="fileFilter" type="in">
+					 <foreach tag="i" end="${__this.getRecordSize()}" condition="${__this.next()}">
+                        <field tag="id[${i}]" etag="0" type="String" scope="transaction" />
+                        <log value="${id[i]}"/>
+                        <field tag="name[${i}]" etag="1" type="String" scope="transaction" />
+                         <log value="${name[i]}"/>
+                         <field tag="age[${i}]" etag="2" type="String" scope="transaction" />
+                         <log value="${age[i]}"/>
+                    </foreach>
+				</filter>
+			</step>
+
+
+			<step id="exception">
+				<filter type="in" ref="publicFilter">
+					<log value="${super.errorcode}" />
+					<log value="${super.description}" />
+				</filter>
 
       </step>
 

@@ -1,50 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<root 
-xmlns="http://www.brilliance.com.cn/interface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.brilliance.com.cn/interface ../etc/schema/interface.xsd">
-    
-	<interface id="sstfservice" type="server" version="2.0">
-		<!--socket服务端  -->
-		<transaction id="receive">
-			<step id="request">
-				<filter ref="socketFilter" type="in">
-					<!-- 报文长度为4个字节 -->
-					<field tag="len" etag="4" type="int"/>
-					<!-- 根据长度读取报文内容 -->
-					<field tag="data" etag="${len}" type="String" scope="step"/>
-				</filter>
-				<filter type="in" ref="publicFilter">
-					<if condition="${data='OK'}">
-						<field tag="retmsg" value="000099" scope="step" />
-					</if>
-					<else>
-						<field tag="retmsg" value="000100" scope="step"/>
-					</else>
-				</filter>
-				<!-- 组装 -->
-				<filter type="out" ref="fixedFilter">
-					<convertor tag="detaLen" value="${_this.getLen(retmsg)}"/>
-					<field etag="0" value="${dataLen}" size="4" type="int"/>
-					<field etag="1" value="${retmsg}" size="${dataLen}"/>
-				</filter>
-			</step>
-		</transaction>
-	</interface>
-	</root>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+<root
+    xmlns="http://www.brilliance.com.cn/interface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.brilliance.com.cn/interface ../etc/schema/interface.xsd">
+
+  <interface id="sstfservice" type="server" version="2.0">
+    <!--socket服务端  -->
+    <transaction id="receive">
+      <step id="request">
+        <filter ref="socketFilter" type="in">
+          <!-- 报文长度为4个字节 -->
+          <field tag="len" etag="4" type="int"/>
+          <!-- 根据长度读取报文内容 -->
+          <field tag="data" etag="${len}" type="String" scope="step"/>
+          <log value="${formatNow('yyyyMMdd')}"/>
+        </filter>
+        <filter type="in" ref="publicFilter">
+          <if condition="${data=='OK'}">
+            <field tag="retmsg" value="000099" scope="step"/>
+          </if>
+          <else>
+            <field tag="retmsg" value="000100" scope="step"/>
+          </else>
+        </filter>
+        <!-- 组装 -->
+        <filter type="out" ref="fixedFilter">
+          <convertor tag="dataLen" value="${__this.getLen(retmsg)}"/>
+          <field value="${dataLen}" size="4" type="int"/>
+          <field value="${retmsg}" size="${dataLen}"/>
+        </filter>
+        <!--将报文返回-->
+        <filter ref="socketFilter" type="out">
+          <field value="${this}"/>
+          <field etag="close"/>
+        </filter>
+
+      </step>
+    </transaction>
+  </interface>
+</root>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
