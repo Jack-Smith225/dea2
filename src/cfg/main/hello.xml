@@ -64,76 +64,74 @@
 
           <!--<field etag="commit"/>-->
 
-          <field etag="insert into teacher(id,nam,age) values(?,?,?)">
+          <!--测试回滚样例-->
+          <!--<field etag="insert into teacher(id,nam,age) values(?,?,?)">
             <argument value="${formatNow('HHmmss')}"/>
-            <argument value="wangwu111111"/>
+            <argument value="wangwu11wwwwwwwwwwwwwwwwwwwwwwwwwww"/>
             <argument value="${20}"/>
-          </field>
+          </field>-->
 
 
           <field tag="resultList" etag="select * from teacher"
                  type="LST"/>
 
-					<field value="${resultList}" />
-					<foreach tag="i" end="${resultList.size()}">
-						<log value="${resultList[i].id}" />
-						<log value="${resultList[i].nam}" />
-					</foreach>
+          <field value="${resultList}"/>
+          <foreach tag="i" end="${resultList.size()}">
+            <log value="${resultList[i].id}"/>
+            <log value="${resultList[i].nam}"/>
+          </foreach>
+
+          <!--学习解析json-->
+          <field tag="map" type="map"/>
+          <field value="${map.put('id','ID0001')}"/>
+          <field value="${map.put('name','lisi')}"/>
+          <field value="${map.put('age',12)}"/>
+          <field tag="jsonStr" value="${toJson(map)}"/>
+          <field tag="map1" value="${fromJson(jsonStr,'map')}"/>
+        </filter>
+
+        <!--将数据库的数据写出到文件，fileFilter指定了数据的组合方式-->
+        <!--组合数据-->
+        <filter ref="fileFilter" type="out">
+          <foreach tag="i" end="${resultList.size()}">
+            <field value="${resultList[i].id}" type="String"/>
+            <field value="${resultList[i].nam}" type="String"/>
+            <field value="${resultList[i].age}" type="String"/>
+          </foreach>
+        </filter>
+        <!--将组合好的数据写出到文件-->
+        <connection ref="fileConnection" type="out">
+          <property name="path" value="d:/test.txt"/>
+        </connection>
+      </step>
 
 
-					<field tag="map" type="map" />
-					<field value="${map.put('id','ID0001')}" />
-					<field value="${map.put('name','lisi')}" />
-					<field value="${map.put('age',12)}" />
-					<field tag="jsonStr" value="${toJson(map)}" />
+      <step id="2">
 
-					<field tag="map1" value="${fromJson(jsonStr,'map')}" />
+        <!--将文件中的内容读入程序-->
+        <!--创建文件连接-->
+        <connection ref="fileConnection" type="in">
+          <property name="path" value="d:/test.txt"/>
+        </connection>
 
-				</filter>
+        <!--将读入流解析-->
+        <filter ref="fileFilter" type="in">
+          <foreach tag="i" end="${__this.getRecordSize()}" condition="${__this.next()}">
+            <field tag="id[${i}]" etag="0" type="String" scope="transaction"/>
+            <log value="${id[i]}"/>
+            <field tag="name[${i}]" etag="1" type="String" scope="transaction"/>
+            <log value="${name[i]}"/>
+            <field tag="age[${i}]" etag="2" type="String" scope="transaction"/>
+            <log value="${age[i]}"/>
+          </foreach>
+        </filter>
+      </step>
 
-
-				<filter ref="fileFilter" type="out">
-					<foreach tag="i" end="${resultList.size()}">
-						<field value="${resultList[i].id}" type="String" />
-						<field value="${resultList[i].nam}" type="String" />
-						<field value="${resultList[i].age}" type="String" />
-					</foreach>
-				</filter>
-
-				<connection ref="fileConnection" type="out">
-					<property name="path" value="d:/test.txt" />
-				</connection>
-
-
-
-
-			</step>
-
-
-			<step id="2">
-
-				<connection ref="fileConnection" type="in">
-					<property name="path" value="d:/test.txt" />
-				</connection>
-
-				<filter ref="fileFilter" type="in">
-					 <foreach tag="i" end="${__this.getRecordSize()}" condition="${__this.next()}">
-                        <field tag="id[${i}]" etag="0" type="String" scope="transaction" />
-                        <log value="${id[i]}"/>
-                        <field tag="name[${i}]" etag="1" type="String" scope="transaction" />
-                         <log value="${name[i]}"/>
-                         <field tag="age[${i}]" etag="2" type="String" scope="transaction" />
-                         <log value="${age[i]}"/>
-                    </foreach>
-				</filter>
-			</step>
-
-
-			<step id="exception">
-				<filter type="in" ref="publicFilter">
-					<log value="${super.errorcode}" />
-					<log value="${super.description}" />
-				</filter>
+      <step id="exception">
+        <filter type="in" ref="publicFilter">
+          <log value="${super.errorcode}"/>
+          <log value="${super.description}"/>
+        </filter>
 
       </step>
 
