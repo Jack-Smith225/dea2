@@ -49,7 +49,7 @@
             <argument value="${s1}"/>
           </call>
 
-          <import file="cfg/etc/importtest.xml" ref="imp1"></import>
+          <import file="cfg/etc/importtest.xml" ref="imp1"/>
         </filter>
       </step>
 

@@ -13,7 +13,7 @@
     </service>
 
 
-    <service id="test_tf2" state="on" type="socket">
+    <service id="test_tf2" state="off" type="socket">
       <property name="port" value="9998" />
       <property name="trust_ip" value="*" /><!-- 信任IP，主要满足配置的IP才能正常访问服务，多个IP用分号，分隔如：127.0.0.1,192.168.1.219，如果为*表示所有IP -->
       <property name="thread_pool_size" value="20" /><!-- 连接池的大小 -->
@@ -25,7 +25,7 @@
 
   </services>
 
-  <tasks state="off">
+  <tasks state="on">
 
     <task id="tsk01" state="on" description="">
       <!-- 时间表达式 quartz表达式 -->
