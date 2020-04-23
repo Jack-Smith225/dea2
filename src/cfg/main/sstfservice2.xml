@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="http://www.brilliance.com.cn/interface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.brilliance.com.cn/interface ../etc/schema/interface.xsd">
+
+  <interface id="sstfservice2" type="server" version="2.0" defaultScope="transaction">
+    <!--socket服务端 -->
+    <transaction id="receive">
+      <step id="request">
+        <filter ref="socketFilter" type="in">
+          <!-- 报文长度为4个字节 -->
+          <field tag="len" etag="4" type="String"/>
+          <!-- 根据长度读取报文内容 -->
+          <field tag="data" etag="${len}" type="String" scope="step"/>
+        </filter>
+        <filter via="${data}" ref="splitFilter" type="in" encoding="GBK">
+          <field tag="fsize" value="${__this.getSplitLen()}"/>
+          <validator id="notenough" condition="${fsize!=0}" errorcode="00006" description="parameters are not enough."/>
+
+          <if condition="${fsize>=2}">
+            <field tag="tranNam" etag="0"/>
+            <field tag="intaceNam" etag="0"/>
+            <field tag="args" type="string[${fsize-1}]"/>
+            <!--args：接口名后面的参数列表-->
+            <foreach tag="i" end="${fsize-1}">
+              <field tag="args[${i}]" etag="${i+1}"/>
+            </foreach>
+            <!--打印获取到的args-->
+            <foreach tag="i" end="${args.size()}">
+              <log value="${args[i]}"/>
+            </foreach>
+          </if>
+          <call tag="result" type="chain" transactionName="${tranNam}" interfaceName="${intaceNam}" scope="transaction">
+            <argument value="${args}"/>
+          </call>
+        </filter>
+
+        <!-- result.content()表示A002 A001中最终返回的报文，即this变量的值 -->
+        <log value="${result.getContent()}"/>
+        <filter type="in" ref="publicFilter">
+          <field tag="retSplstr" value="${result.getContent()}"/>
+        </filter>
+
+        <filter type="out" ref="fixedFilter">
+          <convertor tag="dataLen" value="${__this.getLen(retSplstr)}"/>
+          <field etag="0" value="${dataLen}" type="int" size="4"/>
+          <field etag="1" value="${retSplstr}" size="${dataLen}"/>
+        </filter>
+
+        <filter ref="socketFilter" type="out">
+          <field value="${this}"/>
+          <field etag="close"/>
+        </filter>
+      </step>
+    </transaction>
+  </interface>
+</root>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

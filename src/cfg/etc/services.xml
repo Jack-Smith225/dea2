@@ -8,7 +8,7 @@
       <property name="thread_pool_size" value="20" /><!-- 连接池的大小 -->
       <property name="request_queue_len" value="500" /><!-- socket访问的最大队列 -->
       <property name="receive_timeout" value="10000" />
-      <property name="interfaceName" value="sstfservice" />
+      <property name="interfaceName" value="sstfservice2" />
       <property name="transactionName" value="receive" />
     </service>
 

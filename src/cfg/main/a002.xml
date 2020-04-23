@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="http://www.brilliance.com.cn/interface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.brilliance.com.cn/interface ../etc/schema/interface.xsd">
+
+	<interface id="a002" type="server" version="2.0" defaultScope="transaction">
+		<!--socket服务端 -->
+		<transaction id="a002">
+
+			<step id="1">
+
+				<filter type="in" ref="publicFilter">
+					<!-- 打印从接口平台传过来的参数 -->
+          <foreach tag="i" end="${this[0].size()}">
+            <log value="${this[0][i]}"/>
+          </foreach>
+					<field tag="carNo" value="${this[0][0]}" scope="transaction" />
+					<field tag="carId" value="${this[0][1]}" scope="transaction" />
+				</filter>
+
+				<!-- 组装发往核心系统的XML报文 -->
+				<filter tag="requestXml" type="out" ref="xmlFilter">
+					<field etag="root.trncode" value="B002" scope="transaction" />
+					<field etag="root.carNum" value="${carNo}" scope="transaction" />
+					<field etag="root.carId" value="${carId}" scope="transaction" />
+				</filter>
+
+				<connection ref="socketClientConnection" encoding="UTF-8">
+					<property name="ip" value="127.0.0.1" />
+					<property name="port" value="10001" />
+				</connection>
+				<!-- 加上7位长度的十进制 -->
+				<filter type="out" ref="fixedFilter">
+					<convertor tag="dataLen" value="${__this.getLen(requestXml)}" />
+					<field etag="0" value="${dataLen}" type="int" size="7" />
+					<field etag="1" value="${requestXml}" size="${dataLen}" />
+				</filter>
+				<!-- 请求报文发往核心 -->
+				<filter type="out" ref="socketFilter">
+					<field value="${this}" />
+				</filter>
+
+				<filter ref="socketFilter" type="in" encoding="UTF-8">
+					<!-- 报文长度为7个字节 -->
+					<field tag="len" etag="7" type="int" />
+					<!-- 根据长度读取报文内容 -->
+					<field tag="recvXml" etag="${len}" type="String" scope="step"/>
+					<field etag="close"/>
+				</filter>
+
+        <log value="${recvXml}"/>
+
+        <filter via="${recvXml}" type="in" ref="xmlFilter" encoding="UTF-8">
+					<field tag="retCode" etag="root.rtncod" />
+					<field tag="retDesc" etag="root.rtndsc" />
+				</filter>
+
+				<connection ref="jdbcConnection1" />
+
+				<filter type="in" ref="sqlFilter">
+					<field etag="insert into book(retCode,retDesc) values(?,?)">
+						<argument value="${retCode}" />
+						<argument value="${retDesc}" />
+					</field>
+				</filter>
+
+				<filter ref="splitFilter" type="out" encoding="GBK">
+					<field value="${retCode}" />
+					<field value="${retDesc}" />
+				</filter>
+			</step>
+
+		</transaction>
+	</interface>
+</root>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
