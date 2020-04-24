@@ -140,15 +140,29 @@
     <transaction id="test3">
       <step id="1">
         <connection ref="jdbcConnection1"/>
+        <!--向A表插入数据-->
+<!--
+        <filter ref="sqlFilter" type="in">
+          &lt;!&ndash;<field tag="nextInt" etag="__this.getCNTinr('A')"/>
+          <log value="${nextInt}"/>&ndash;&gt;
+          <field etag="insert into A(id, nam, pk) values(?, ?, ?)">
+            <argument value="${1}"/>
+            <argument value="${1}"/>
+            <argument value="${__this.getCNTinr('A')}"/>
+          </field>
+        </filter>
+-->
+        <!--向B表插入A表的数据-->
         <filter type="in" ref="sqlFilter">
           <field tag="retLst" etag="select * from A" type="LST">
           </field>
           <foreach tag="i" end="${retLst.size()}">
             <log value="${retLst[i].id}"/>
             <log value="${retLst[i].nam}"/>
-            <field etag="insert into B(id1, nam1) values(?,?)">
+            <field etag="insert into B(id1, nam1, pk1) values(?,?,?)">
               <argument value="${retLst[i].id}"/>
               <argument value="${retLst[i].nam}"/>
+              <argument value="${__this.getCNTinr('B')}"/>
             </field>
           </foreach>
         </filter>
@@ -181,6 +195,23 @@
         <filter ref="publicFilter" type="in">
           <field tag="helloStr" value="Hello,${this[0]}"/>
           <log value="${helloStr}" level="debug"/>
+        </filter>
+
+        <connection ref="jdbcConnection1" />
+
+
+        <filter type="in" ref="sqlFilter">
+
+
+          <field etag="insert into teacher2(id,nam,age) values(?,?,?)">
+            <!-- <argument value="${__this.getCNTinr('teacher2')}" /> -->
+            <argument value="${__this.getSeqNextVal('TEACHER_SEQ')}" />
+            <argument value="test2" />
+            <argument value="${20}" />
+
+          </field>
+
+
         </filter>
       </step>
     </transaction>
