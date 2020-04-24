@@ -137,6 +137,25 @@
 
     </transaction>
 
+    <transaction id="test3">
+      <step id="1">
+        <connection ref="jdbcConnection1"/>
+        <filter type="in" ref="sqlFilter">
+          <field tag="retLst" etag="select * from A" type="LST">
+          </field>
+          <foreach tag="i" end="${retLst.size()}">
+            <log value="${retLst[i].id}"/>
+            <log value="${retLst[i].nam}"/>
+            <field etag="insert into B(id1, nam1) values(?,?)">
+              <argument value="${retLst[i].id}"/>
+              <argument value="${retLst[i].nam}"/>
+            </field>
+          </foreach>
+        </filter>
+      </step>
+
+    </transaction>
+
     <transaction id="test2">
       <step id="1">
         <filter ref="publicFilter" type="in">

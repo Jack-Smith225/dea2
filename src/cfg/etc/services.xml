@@ -25,13 +25,13 @@
 
   </services>
 
-	<tasks state="off">
+	<tasks state="on">
 
     <task id="tsk01" state="on" description="">
       <!-- 时间表达式 quartz表达式 -->
-      <property name="expression" value="*/5 * * * * ? *" />
+      <property name="expression" value="*/2 * * * * ? *" />
       <property name="interfacename" value="hello" />
-      <property name="transname" value="test1" />
+      <property name="transname" value="test3" />
 
     </task>
 
