@@ -162,7 +162,8 @@
             <field etag="insert into B(id1, nam1, pk1) values(?,?,?)">
               <argument value="${retLst[i].id}"/>
               <argument value="${retLst[i].nam}"/>
-              <argument value="${__this.getCNTinr('B')}"/>
+              <!--<argument value="${__this.getCNTinr('B')}"/>-->
+              <argument value="${__this.getSeqNextVal('SEQ_B')}"/>
             </field>
           </foreach>
         </filter>
