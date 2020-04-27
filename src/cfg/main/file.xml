@@ -17,7 +17,7 @@
                     <field etag="1" value="${aa}" size="${dataLen}" />
                 </filter>
 				<log value="${aa}" level="info" />
-				
+
 				<!--建立SOCKET连接 -->
 				<connection ref="socketClientConnection" type="out">
 					<property name="ip" value="127.0.0.1" />
@@ -34,10 +34,10 @@
                     <field tag="len" value="${len-6}" type="int" />
                     <!-- 根据长度读取报文内容 -->
                     <field tag="data" etag="${len}" type="String" scope="step" />
-                     <log value="${data}" level="info" />					
+                     <log value="${data}" level="info" />
 					<field etag="close"/>
                 </filter>
-                
+
                   <filter tag="dd" ref="fileFilter" type="in">
                     <foreach tag="i" end="2" condition="${__this.next()}">
                         <field tag="clien_no[${i}]" etag="0" type="int" scope="transaction" />
@@ -46,10 +46,10 @@
                         <log value="${product_code[i]}" level="debug"/>
                     </foreach>
                 </filter>
-                
+
             </step>
         </transaction>
-        
+
         <!-- this is server -->
         <transaction id="test" version="2.0">
 		<step id="1">
@@ -81,7 +81,7 @@
             <parameter name="record_strategy" value="bysplit" /><!-- 行与行策略 -->
             <parameter name="record" value="\r\n" /><!--行与行换行符隔开 -->
             <parameter name="field_strategy" value="bysplit" /><!--列于列策略 -->
-            <parameter name="field" value="|+|" /><!--列之间的分隔符 -->
+            <parameter name="field" value="|" /><!--列之间的分隔符 -->
         </filter>
     </filters>
 </root>

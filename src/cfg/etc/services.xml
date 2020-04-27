@@ -2,44 +2,54 @@
 <root>
   <services id="services" state="on" hotDeploy="off">
 
-    <service id="test_tf1" state="on" type="socket">
-      <property name="port" value="9999" />
-      <property name="trust_ip" value="*" /><!-- 信任IP，主要满足配置的IP才能正常访问服务，多个IP用分号，分隔如：127.0.0.1,192.168.1.219，如果为*表示所有IP -->
-      <property name="thread_pool_size" value="20" /><!-- 连接池的大小 -->
-      <property name="request_queue_len" value="500" /><!-- socket访问的最大队列 -->
-      <property name="receive_timeout" value="10000" />
-      <property name="interfaceName" value="sstfservice2" />
-      <property name="transactionName" value="receive" />
+    <service id="test_tf1" state="off" type="socket">
+      <property name="port" value="9999"/>
+      <property name="trust_ip"
+                value="*"/><!-- 信任IP，主要满足配置的IP才能正常访问服务，多个IP用分号，分隔如：127.0.0.1,192.168.1.219，如果为*表示所有IP -->
+      <property name="thread_pool_size" value="20"/><!-- 连接池的大小 -->
+      <property name="request_queue_len" value="500"/><!-- socket访问的最大队列 -->
+      <property name="receive_timeout" value="10000"/>
+      <property name="interfaceName" value="sstfservice2"/>
+      <property name="transactionName" value="receive"/>
     </service>
 
 
     <service id="test_tf2" state="off" type="socket">
-      <property name="port" value="9998" />
-      <property name="trust_ip" value="*" /><!-- 信任IP，主要满足配置的IP才能正常访问服务，多个IP用分号，分隔如：127.0.0.1,192.168.1.219，如果为*表示所有IP -->
-      <property name="thread_pool_size" value="20" /><!-- 连接池的大小 -->
-      <property name="request_queue_len" value="500" /><!-- socket访问的最大队列 -->
-      <property name="receive_timeout" value="10000" />
-      <property name="interfaceName" value="szsbfeedback" />
-      <property name="transactionName" value="szsbfeedback" />
+      <property name="port" value="9998"/>
+      <property name="trust_ip"
+                value="*"/><!-- 信任IP，主要满足配置的IP才能正常访问服务，多个IP用分号，分隔如：127.0.0.1,192.168.1.219，如果为*表示所有IP -->
+      <property name="thread_pool_size" value="20"/><!-- 连接池的大小 -->
+      <property name="request_queue_len" value="500"/><!-- socket访问的最大队列 -->
+      <property name="receive_timeout" value="10000"/>
+      <property name="interfaceName" value="szsbfeedback"/>
+      <property name="transactionName" value="szsbfeedback"/>
     </service>
 
   </services>
 
-	<tasks state="on">
+  <tasks state="on">
 
-    <task id="tsk01" state="on" description="">
+    <task id="tsk01" state="off" description="">
       <!-- 时间表达式 quartz表达式 -->
-      <property name="expression" value="*/2 * * * * ? *" />
-      <property name="interfacename" value="hello" />
-      <property name="transname" value="test3" />
+      <property name="expression" value="*/2 * * * * ? *"/>
+      <property name="interfacename" value="hello"/>
+      <property name="transname" value="test3"/>
 
     </task>
 
     <task id="tsk02" state="off" description="">
-      <property name="expression" value="0 0/1 * * * ? *" />
-      <property name="interfacename" value="historyhq" />
-      <property name="transname" value="historyhq" />
+      <property name="expression" value="0 0/1 * * * ? *"/>
+      <property name="interfacename" value="historyhq"/>
+      <property name="transname" value="historyhq"/>
 
+    </task>
+
+    <!--第一题 ==> 定时调度-->
+    <task id="tsk03" state="on">
+      <!--设置每分钟调度-->
+      <property name="expression" value="0 * * ? * *"/>
+      <property name="interfacename" value="test_zhangyan"/>
+      <property name="transname" value="test1"/>
     </task>
   </tasks>
 

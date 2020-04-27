@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns="http://www.brilliance.com.cn/interface"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.brilliance.com.cn/interface
+ ../etc/schema/interface.xsd">
+  <interface id="test_zhangyan" version="2.0"
+             defaultScope="transaction">
+    <transaction id="test1">
+      <step id="1">
+        <connection ref="jdbcConnection1"/>
+        <filter type="in" ref="sqlFilter">
+          <field tag="retLst" etag="select * from A" type="LST">
+          </field>
+          <!--第一题 ==> 将表A的记录插入B-->
+          <foreach tag="i" end="${retLst.size()}">
+            <log value="${retLst[i].id}"/>
+            <log value="${retLst[i].nam}"/>
+            <field etag="insert into B(id1, nam1) values(?,?)">
+              <argument value="${retLst[i].id}"/>
+              <argument value="${retLst[i].nam}"/>
+            </field>
+          </foreach>
+        </filter>
+
+        <!--第一题 ==> 将B表的记录写入文件-->
+        <filter ref="sqlFilter" type="in">
+          <field tag="retLst" etag="select * from B" type="LST"/>
+        </filter>
+        <filter ref="fileFilter" type="out">
+          <foreach tag="i" end="${retLst.size()}">
+            <field value="${retLst[i].id1}"/>
+            <field value="${retLst[i].nam1}"/>
+          </foreach>
+        </filter>
+        <connection ref="fileConnection" type="out">
+          <property name="path" value="d:/result.txt"/>
+        </connection>
+      </step>
+    </transaction>
+  </interface>
+  <filters>
+    <filter id="publicFilter" class="PublicFilter"/>
+  </filters>
+
+</root>
