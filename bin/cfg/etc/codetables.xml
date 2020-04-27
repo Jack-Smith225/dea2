@@ -10,6 +10,12 @@
 		<code id="1" value="20天" />
 		<code id="2" value="30天" />
 	</codetable>
+  <!--第三题-->
+  <codetable id="cd_zhangyan">
+    <code id="city" value="开封" />
+    <code id="province" value="河南省" />
+    <code id="country" value="中国" />
+  </codetable>
 	<!-- 动态码表 -->
 	<codetable id="cur" sql="SELECT nam1,nam2 FROM tmpkey" />
 </codetables>

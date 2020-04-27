@@ -35,6 +35,16 @@
         <connection ref="fileConnection" type="out">
           <property name="path" value="d:/result.txt"/>
         </connection>
+
+        <!--第三题 ==> 使用码表-->
+        <filter ref="publicFilter" type="in">
+          <field tag="city" value="city" codetable="cd_zhangyan"/>
+          <log value="${city}" level="debug"/>
+          <field tag="province" value="province" codetable="cd_zhangyan"/>
+          <log value="${province}" level="debug"/>
+          <field tag="country" value="country" codetable="cd_zhangyan"/>
+          <log value="${country}" level="debug"/>
+        </filter>
       </step>
     </transaction>
   </interface>
