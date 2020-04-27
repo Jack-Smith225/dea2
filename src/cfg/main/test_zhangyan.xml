@@ -45,6 +45,10 @@
           <field tag="country" value="country" codetable="cd_zhangyan"/>
           <log value="${country}" level="debug"/>
         </filter>
+        <!--第4题 ==> 调用自定义静态函数-->
+        <filter ref="publicFilter" type="in">
+          <field value="${test_zhangyan:test_zhangyan()}"/>
+        </filter>
       </step>
     </transaction>
   </interface>

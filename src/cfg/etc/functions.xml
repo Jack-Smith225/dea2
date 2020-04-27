@@ -5,5 +5,7 @@
    schema/function.xsd">
 
   <func static="true" namespace="mtu" class="com.brilliance.test.MsgTestUtil"/>
+  <!--第4题 ==> 定义引用自定义类-->
+  <func static="true" namespace="test_zhangyan" class="com.brilliance.test.MsgTestUtil"/>
 
 </functions>
