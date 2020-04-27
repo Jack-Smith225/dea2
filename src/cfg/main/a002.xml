@@ -12,20 +12,24 @@
           <foreach tag="i" end="${this[0].size()}">
             <log value="${this[0][i]}"/>
           </foreach>
-					<field tag="carNo" value="${this[0][0]}" scope="transaction" />
-					<field tag="carId" value="${this[0][1]}" scope="transaction" />
+					<field tag="p1" value="${this[0][0]}" scope="transaction" />
+          <field tag="p2" value="${this[0][1]}" scope="transaction" />
+          <field tag="p3" value="${this[0][2]}" scope="transaction" />
+          <field tag="p4" value="${this[0][3]}" scope="transaction" />
 				</filter>
 
 				<!-- 组装发往核心系统的XML报文 -->
 				<filter tag="requestXml" type="out" ref="xmlFilter">
 					<field etag="root.trncode" value="B002" scope="transaction" />
-					<field etag="root.carNum" value="${carNo}" scope="transaction" />
-					<field etag="root.carId" value="${carId}" scope="transaction" />
+					<field etag="root.p1" value="${p1}" scope="transaction" />
+          <field etag="root.p2" value="${p2}" scope="transaction" />
+          <field etag="root.p3" value="${p3}" scope="transaction" />
+          <field etag="root.p4" value="${p4}" scope="transaction" />
 				</filter>
 
 				<connection ref="socketClientConnection" encoding="UTF-8">
 					<property name="ip" value="127.0.0.1" />
-					<property name="port" value="10001" />
+					<property name="port" value="10002" />
 				</connection>
 				<!-- 加上7位长度的十进制 -->
 				<filter type="out" ref="fixedFilter">
@@ -71,20 +75,3 @@
 		</transaction>
 	</interface>
 </root>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

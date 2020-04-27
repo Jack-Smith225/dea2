@@ -7,8 +7,8 @@
     <transaction id="receive">
       <step id="request">
         <filter ref="socketFilter" type="in">
-          <!-- 报文长度为4个字节 -->
-          <field tag="len" etag="4" type="String"/>
+          <!-- 报文长度为6个字节 -->
+          <field tag="len" etag="6" type="String"/>
           <!-- 根据长度读取报文内容 -->
           <field tag="data" etag="${len}" type="String" scope="step"/>
         </filter>
